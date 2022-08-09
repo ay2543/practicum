@@ -70,6 +70,9 @@ for(i in seq_along(nsduh_data_names)){
   nsduh_list[[i]] <- nsduh_list[[i]][, names(nsduh_list[[i]]) %in% var_names]
 }
 
+##### ERROR code: Error in `$<-.data.frame`(`*tmp*`, "realid", value = numeric(0)) : 
+  replacement has 0 rows, data has 57146
+
 ### Append all of the list elements into a single dataframe
 nsduh <- do.call(rbind, nsduh_list)
 
