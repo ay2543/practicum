@@ -33,19 +33,8 @@ nsduh_list <- list()
 
 
 ### Create a vector of the variable names we want to keep
-var_names <- c("caseid", "realid", "vestr", "verep", "year", "heryr", "anlyr", "mrjyr", "newrace2", 
-               "iranlfy", "age2", "income", "irsex", "pden", "abodanl", "abodher", "anydrug", "analwt_c",
-               
-               "txyrndalc", "txyrndill", "txyrndilal", #need tx under dsm-iv
-               "ndfltxalc", "ndfltxill", "ndfltxilal", #felt needed tx
-               "txyralc", "txyrill", "txyralnil", "txyrilnal", "txyrrecvd2", #received tx at any location
-               "txpdhinsal", "txpdmcreal", "txpdmcadal", "txpdpublal", "txpdsvngal",
-               "txpdhinsil", "txpdmcreil", "txpdmcadil", "txpdpublil", "txpdsvngil",
-               "txpayhins2", "txpaymcre2", "txpaymcad2", "txpaypubl2", "txpaysvng2", #payment for tx
-               "txyrhosal", "txyrresal", "txyroutal", "txyrmhcal", "txyremral",
-               "txyrhosil", "txyrresil", "txyroutil", "txyrmhcil", "txyremril", 
-               "txyrhosov2", "txyrresov2", "txyroutpt2", "txyrmhcop2", "txyremrgn2")
 
+var_names <- c("txyrndalc", "txyrndill")
 
 ### loop to import the 8 NSDUH datasets into the list we created ("nsduh_list")
 
