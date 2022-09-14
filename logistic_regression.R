@@ -23,10 +23,42 @@ nsduh_2015_2019_full <- nsduh_full[nsduh_full$year <= "2019",]
 nsduh_2020_full <- nsduh_full[nsduh_full$year == "2020",]
 
 
+skimr::skim(nsduh_full)
+
 # Create survey design object
 design_obj <- svydesign(ids = ~verep, strata = ~vestr, weights = ~analwt_c, data = nsduh_full, nest = T)
 
+# I am using an alternative package (srvyr) to create the design object. 
+# With this package I can compute statistics using the survey design and tidyverse coding
+library(srvyr)
 
+# recode variables as factors. What does each variable mean?
+nsduh_full <- nsduh_full %>%
+  mutate(txyrrecvd2 = factor(txyrrecvd2, labels = c("No", "Yes")), 
+         txyrndilal = factor(txyrndilal, labels = c("No", "Yes")))
+
+# creating survey design 
+nsduh_design <- nsduh_full %>%
+  as_survey_design(strata = vestr, 
+                   ids = verep, 
+                   weights = analwt_c / 6, 
+                   nest = T)
+
+# check how both variables are basically the same thing. 81% of both variables are Yes and 93% of both variables
+# are no. My suspicion is that they are highly collinear and that is why you get massive ORs. 
+nsduh_design %>%
+  group_by(txyrrecvd2, txyrndilal) %>%
+  summarise(prop = survey_mean(proportion = T))
+
+
+# use the design object to run the logistic regression
+m1 <- svyglm(txyrrecvd2 ~ factor(txyrndilal), design = design_obj, family = "quasibinomial")
+
+# getting model summary and ORs. OR is 58!
+m1 %>%
+  broom::tidy(exponentiate = T, conf.int = T)
+
+#-------------------------------------------------------------------#
 
 unadjusted <- glm(txyrrecvd2 ~ txyrndilal, data = nsduh_full, family = "binomial", weights = analwt_c)
 
