@@ -22,6 +22,8 @@ nsduh_2015_2019_full <- nsduh_full[nsduh_full$year <= "2019",]
 nsduh_2020_full <- nsduh_full[nsduh_full$year == "2020",]
 
 
+# Create survey design object
+design_obj <- svydesign(ids = ~verep, strata = ~vestr, weights = ~analwt_c, data = nsduh_full, nest = T)
 
 
 
