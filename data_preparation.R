@@ -32,6 +32,9 @@ for(i in dataURL){
   load(url(i))
 }
 
+## Unify variable names
+NSDUH_2020$ANALWT_C <- NSDUH_2020$ANALWTQ1Q4_C
+NSDUH_2020$vestr <- NSDUH_2020$VESTRQ1Q4_C
 
 ls(pattern = "PUF") ### look for the dataset names, they start with PUF
 
@@ -44,7 +47,19 @@ dataList <- list(NSDUH15 = PUF2015_021518,
                  NSDUH20 = NSDUH_2020) 
 
 ### Create a vector of the variable names we want to keep
-var_names <- c("txyrndalc", "txyrndill")
+var_names <- c("txyrndalc", "txyrndill", "txyrndilal", #need tx under dsm-iv
+               "ndfltxalc", "ndfltxill", "ndfltxilal", #felt needed tx
+               "txyralc", "txyrill", "txyralnil", "txyrilnal", "txyrrecvd2", #received tx at any location
+               "txpdhinsal", "txpdmcreal", "txpdmcadal", "txpdpublal", "txpdsvngal",
+               "txpdhinsil", "txpdmcreil", "txpdmcadil", "txpdpublil", "txpdsvngil",
+               "txpayhins2", "txpaymcre2", "txpaymcad2", "txpaypubl2", "txpaysvng2", #payment for tx
+               "txyrhosal", "txyrresal", "txyroutal", "txyrmhcal", "txyremral",
+               "txyrhosil", "txyrresil", "txyroutil", "txyrmhcil", "txyremril", 
+               "txyrhosov2", "txyrresov2", "txyroutpt2", "txyrmhcop2", "txyremrgn2",
+               "amhtxrc3", #received any MH trx in the past yr
+               "spdmon", #psychological distress indicator via RC-K6 score
+               
+               "catage", "irsex", "newrace2", "income", "analwt_c", "vestr", "verep")
 
 ### do some data wrangling
 for(i in 1:6){
